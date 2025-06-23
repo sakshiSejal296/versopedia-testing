@@ -1,4 +1,4 @@
-# 🌸 VerseVault – Versopedia  
+# 🌸 Versopedia  
 *A Poetry & Reflection API that speaks in code and soul.*
 
 > “In lines of logic and verses made,  
