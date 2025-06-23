@@ -115,7 +115,7 @@ npx jest --coverage
 > are ways of loving the world — quietly, precisely.
 
 📍 Bhubaneswar, India  
-🔗 [GitHub Profile](https://github.com/your-username)
+🔗 [GitHub Profile](https://github.com/sakshiSejal296)
 
 ---
 
