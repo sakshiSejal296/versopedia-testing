@@ -74,15 +74,14 @@ But **tested with precision**.
 
 ### 📥 Clone the project
 ```bash
-git clone https://github.com/your-username/versopedia-tested.git
+git clone https://github.com/sakshiSejal296/versopedia-tested.git
 cd versopedia-tested
 ```
 
 ### ⚙️ Setup the Environment
 Create a `.env` file:
 ```env
-DATABASE_URL="postgresql://postgres:tWExDYdDxRcioKZsRZncCHmeiBWhoHSS@maglev.proxy.rlwy.net:35574/railway"
-
+DATABASE_URL="postgresql://<your-db-url>"
 ```
 
 ### 📚 Run Migrations
@@ -101,10 +100,10 @@ npx jest --coverage
 
 ## ✨ Features You’ll Love
 
-- 🌅 **Poem of the Day**: Served fresh and inspiring
-- 📝 **Reflections**: Users can express their own
-- 🧹 **Clean & Secure**: Input sanitized and validated
-- 🧪 **Thoroughly Tested**: Unit + Integration + API coverage
+- 🌅 **Poem of the Day**: Served fresh and inspiring  
+- 📝 **Reflections**: Users can express their own  
+- 🧹 **Clean & Secure**: Input sanitized and validated  
+- 🧪 **Thoroughly Tested**: Unit + Integration + API coverage  
 
 ---
 
@@ -130,3 +129,82 @@ Because beauty deserves to be open-source. 💫
 > This vault was carved in silent times.  
 > Now you may build, reflect, and grow —  
 > For even APIs let emotions flow.” 🌿
+
+---
+
+## 🧪 API Testing with Keploy + CI/CD Integration
+
+This project uses [Keploy](https://keploy.io) for intelligent API test generation and CI/CD integration.
+
+### ✅ What Keploy Does:
+- Records API calls & generates tests from real traffic
+- Replays test cases on each build to catch regressions
+- Uploads results to [Keploy Dashboard](https://app.keploy.io)
+
+---
+
+## 📸 Keploy Test Report
+
+> 🖥️ Keploy recording in terminal:
+
+![Keploy Terminal](./keploy_terminal.png)
+
+> ✅ Auto-generated API test result report:
+
+![Keploy Test Report](./keploy_test.jpg)
+
+---
+
+## ⚙️ GitHub Actions CI/CD
+
+Automated test execution is powered by **GitHub Actions**.
+
+📁 [CI Workflow File](https://github.com/sakshiSejal296/versopedia-tested/blob/main/.github/workflows/keploy.yml)
+
+Each commit runs:
+- Keploy tests
+- Coverage checks
+- Result reporting
+
+You can view live CI status under the [Actions tab](https://github.com/sakshiSejal296/versopedia-tested/actions).
+
+---
+
+## 🐳 Docker Setup for Keploy
+
+To run tests inside Docker:
+
+### ▶️ Record Mode
+```bash
+docker build -t versopedia-keploy .
+docker run --rm -it -p 5000:5000 versopedia-keploy
+```
+
+### 🔁 Test Replay Mode
+
+Update your `Dockerfile` to:
+```Dockerfile
+CMD ["keploy", "test", "--command", "npm start"]
+```
+
+Then:
+```bash
+docker build -t versopedia-keploy .
+docker run --rm -it -p 5000:5000 versopedia-keploy
+```
+
+---
+
+## 📜 OpenAPI Docs
+
+Run the app and go to:
+
+```
+http://localhost:5000/api-docs
+```
+
+For auto-generated Swagger documentation.
+
+---
+
+> “Even testing becomes poetry when the process flows effortlessly.” 🧪🌿
