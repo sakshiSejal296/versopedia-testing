@@ -1,8 +1,8 @@
-# 📚 Versopedia API Documentation
+# 📚 VersOpedia API Documentation
 
 
 
-Welcome to the backend documentation for **Versopedia** — a platform that blends the art of poetry with the beauty of human reflection.
+Welcome to the backend documentation for **VersOpedia** — a platform that blends the art of poetry with the beauty of human reflection.
 
 This document serves as a guide to the core API endpoints that power the VerseVault experience — from delivering the *Poem of the Day*, to capturing the voices of readers who share how it touched their hearts. Whether you’re integrating this API into a frontend app or simply exploring the architecture, this guide will walk you through each endpoint with clarity and examples.
 

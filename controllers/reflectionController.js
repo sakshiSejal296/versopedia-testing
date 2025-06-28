@@ -55,13 +55,53 @@ const deleteReflection = async (req, res) => {
     res.status(500).json({ error: "Failed to delete reflection" });
   }
 };
+// GET /reflections — Return all reflections
+const getAllReflections = async (req, res) => {
+  try {
+    const reflections = await prisma.reflection.findMany({
+      orderBy: {
+        createdAt: 'desc' // Optional: sorts reflections by newest first
+      },
+      include: {
+        poem: true // Optional: include associated poem info
+      }
+    });
+
+    res.status(200).json(reflections);
+  } catch (error) {
+    console.error("Error fetching all reflections:", error);
+    res.status(500).json({ error: "Failed to fetch reflections" });
+  }
+};
+// PUT /reflections/:id — Update a reflection
+const updateReflection = async (req, res) => {
+  const { id } = req.params;
+  const { text } = req.body;
+
+  try {
+    const updated = await prisma.reflection.update({
+      where: { id: parseInt(id) },
+      data: { text }
+    });
+
+    res.status(200).json(updated);
+  } catch (error) {
+    console.error("Error updating reflection:", error);
+    res.status(500).json({ error: "Failed to update reflection" });
+  }
+};
+
 
 // GET /api/reflections/poem/today
 const getTodayPoem = async (req, res) => {
-   console.log("🔥 /poem/today endpoint hit");
-  const today = new Date();
-  const startOfDay = new Date(today.setHours(0, 0, 0, 0));
-  const endOfDay = new Date(today.setHours(23, 59, 59, 999));
+  console.log("🔥 /poem/today endpoint hit");
+
+  const now = new Date(); // full Date object
+  const startOfDay = new Date(now);
+  startOfDay.setHours(0, 0, 0, 0);
+
+  const endOfDay = new Date(now);
+  endOfDay.setHours(23, 59, 59, 999);
 
   console.log("Fetching poem between", startOfDay.toISOString(), "and", endOfDay.toISOString());
 
@@ -82,14 +122,17 @@ const getTodayPoem = async (req, res) => {
     res.json(poem);
   } catch (error) {
     console.error("Error fetching today's poem:", error);
-    res.status(500).json({ error: error.message });
+    res.status(500).json({ message: "Internal server error" });
   }
 };
+
 
 
 module.exports = {
   createReflection,
   getReflectionsByPoemId,
   deleteReflection,
-  getTodayPoem
+  getTodayPoem,
+  getAllReflections,
+  updateReflection
 };

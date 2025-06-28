@@ -1,0 +1,173 @@
+openapi: 3.0.0
+info:
+  title: Versopedia API
+  version: 1.0.0
+  description: |
+    📚Versopedia is a platform where users can explore daily poems and share personal reflections. 
+    This OpenAPI specification defines the endpoints and data structures used to interact with the platform.
+
+servers:
+  - url: http://localhost:5000
+    description: Local development server
+
+paths:
+  /poems:
+    get:
+      summary: Retrieve all poems
+      description: Returns a list of poems for the day.
+      responses:
+        '200':
+          description: A JSON array of poems
+    post:
+      summary: Create a new poem
+      description: Add a new poem to the platform.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Poem'
+      responses:
+        '201':
+          description: Poem created successfully
+
+  /poems/{id}:
+    get:
+      summary: Retrieve a poem by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: Unique ID of the poem
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Poem found
+        '404':
+          description: Poem not found
+    put:
+      summary: Update a poem by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Poem'
+      responses:
+        '200':
+          description: Poem updated
+    delete:
+      summary: Delete a poem by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Poem deleted successfully
+
+  /reflections:
+    get:
+      summary: Retrieve all reflections
+      description: Get all reflections submitted by users.
+      responses:
+        '200':
+          description: A list of reflections
+    post:
+      summary: Submit a new reflection
+      description: Post a new reflection linked to a poem.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Reflection'
+      responses:
+        '201':
+          description: Reflection added successfully
+
+  /reflections/{id}:
+    get:
+      summary: Retrieve a reflection by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Reflection found
+        '404':
+          description: Reflection not found
+    put:
+      summary: Update a reflection by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Reflection'
+      responses:
+        '200':
+          description: Reflection updated
+    delete:
+      summary: Delete a reflection by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Reflection deleted successfully
+
+components:
+  schemas:
+    Poem:
+      type: object
+      properties:
+        title:
+          type: string
+        author:
+          type: string
+        content:
+          type: string
+        date:
+          type: string
+          format: date
+      required:
+        - title
+        - author
+        - content
+        - date
+
+    Reflection:
+      type: object
+      properties:
+        name:
+          type: string
+        thought:
+          type: string
+        poemId:
+          type: string
+      required:
+        - name
+        - thought
+        - poemId
